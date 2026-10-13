@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>StroomX — Let your business flow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f5f0;
+      --bg2: #efece4;
+      --ink: #15171c;
+      --mute: #6b6f7a;
+      --line: #dcd8cc;
+      --a: #ff7a45;
+      --b: #ffb08a;
+      --c: #ffd8c2;
+      --o: #ff4000;
+      --card: #ffffffcc;
+      --display: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
+      --body: 'Barlow', system-ui, sans-serif;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      color-scheme: light
+    }
+
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px)
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit;
+      margin: 0
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--display);
+      font-weight: 500;
+      line-height: 1.02;
+      letter-spacing: -.03em
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 48px)
+    }
+
+    .eyebrow {
+      font-size: .78rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--mute);
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--ink)
+    }
+
+    /* nav */
+    nav {
+      position: fixed;
+      top: env(safe-area-inset-top, 0px);
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px clamp(20px, 5vw, 48px);
+      mix-blend-mode: normal
+    }
+
+    .logo {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1.35rem;
+      letter-spacing: -.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .logo i {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--a), var(--b));
+      display: inline-block
+    }
+
+    .pill {
+      background: var(--ink);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 99px;
+      font-size: .88rem;
+      transition: transform .3s
+    }
+
+    .pill:hover {
+      transform: scale(1.05)
+    }
+
+    .progress {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 3px;
+      width: 100%;
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      background: linear-gradient(90deg, var(--a), var(--b), var(--c));
+      z-index: 60
+    }
+
+    /* hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 0 80px
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: .7;
+      pointer-events: none
+    }
+
+    .b1 {
+      width: 46vw;
+      height: 46vw;
+      background: var(--a);
+      top: -10vw;
+      right: -8vw
+    }
+
+    .b2 {
+      width: 36vw;
+      height: 36vw;
+      background: var(--b);
+      bottom: -12vw;
+      left: -8vw
+    }
+
+    .b3 {
+      width: 24vw;
+      height: 24vw;
+      background: var(--c);
+      top: 35%;
+      left: 42%
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 10vw, 9rem);
+      margin: 22px 0 28px;
+      position: relative
+    }
+
+    .w {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+      padding-bottom: .12em
+    }
+
+    .w span {
+      display: inline-block
+    }
+
+    .hero p {
+      max-width: 520px;
+      color: var(--mute);
+      font-size: 1.1rem;
+      position: relative
+    }
+
+    .hero-cta {
+      margin-top: 34px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      position: relative
+    }
+
+    .ghost {
+      border: 1px solid var(--ink);
+      padding: 10px 20px;
+      border-radius: 99px;
+      font-size: .88rem
+    }
+
+    .scrollhint {
+      position: absolute;
+      bottom: 28px;
+      left: clamp(20px, 5vw, 48px);
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--mute);
+      display: flex;
+      gap: 12px;
+      align-items: center
+    }
+
+    .scrollhint b {
+      display: block;
+      width: 1px;
+      height: 42px;
+      background: var(--ink);
+      transform-origin: top;
+      animation: drip 2s ease-in-out infinite
+    }
+
+    @keyframes drip {
+      0% {
+        transform: scaleY(0)
+      }
+
+      60% {
+        transform: scaleY(1)
+      }
+
+      100% {
+        transform: scaleY(1);
+        opacity: 0
+      }
+    }
+
+    /* marquee */
+    .marquee {
+      border-block: 1px solid var(--line);
+      padding: 22px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      background: var(--bg2)
+    }
+
+    .marquee div {
+      display: inline-flex;
+      gap: 56px;
+      font-family: var(--display);
+      font-size: clamp(1.4rem, 3vw, 2.4rem);
+      color: var(--mute);
+      padding-right: 56px
+    }
+
+    .marquee em {
+      font-style: normal;
+      color: var(--ink)
+    }
+
+    /* story */
+    .story {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center
+    }
+
+    .orb {
+      position: absolute;
+      right: 8vw;
+      top: 50%;
+      width: min(42vw, 460px);
+      aspect-ratio: 1;
+      margin-top: calc(min(42vw, 460px)/-2);
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--a) 45%, var(--b));
+      box-shadow: 0 40px 100px -30px #ff400055
+    }
+
+    .ring {
+      position: absolute;
+      inset: -9%;
+      border: 1px dashed var(--ink);
+      border-radius: 50%;
+      opacity: .25
+    }
+
+    .chap {
+      position: absolute;
+      left: clamp(20px, 5vw, 48px);
+      max-width: min(560px, 86vw);
+      top: 50%;
+      transform: translateY(-50%)
+    }
+
+    .chap .n {
+      font-family: var(--display);
+      font-size: .9rem;
+      color: var(--mute);
+      margin-bottom: 14px
+    }
+
+    .chap h2 {
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      margin-bottom: 18px
+    }
+
+    .chap p {
+      color: var(--mute);
+      font-size: 1.05rem;
+      max-width: 460px
+    }
+
+    .dots {
+      position: absolute;
+      left: clamp(20px, 5vw, 48px);
+      bottom: 36px;
+      display: flex;
+      gap: 8px
+    }
+
+    .dots i {
+      width: 28px;
+      height: 3px;
+      background: var(--line);
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .dots i b {
+      position: absolute;
+      inset: 0;
+      background: var(--ink);
+      transform: scaleX(0);
+      transform-origin: 0
+    }
+
+    /* stats */
+    .stats {
+      padding: clamp(80px, 14vw, 160px) 0
+    }
+
+    .stats h2 {
+      font-size: clamp(2.2rem, 6vw, 5rem);
+      max-width: 900px;
+      margin: 16px 0 64px
+    }
+    .count {
+        font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(3rem, 6vw, 7rem);
+      letter-spacing: -.04em;
+      color: #000
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px
+    }
+
+    .stat {
+      border-top: 1px solid var(--ink);
+      padding-top: 18px
+    }
+
+    .stat strong {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(1rem, 6vw, 2rem);
+      letter-spacing: -.04em;
+      display: block;
+      line-height: 1
+    }
+
+
+
+    /* process */
+    .process {
+      padding: 0 0 clamp(80px, 14vw, 160px)
+    }
+
+    .process h2 {
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      margin: 16px 0 56px
+    }
+
+    .steps {
+      position: relative;
+      padding-left: 44px
+    }
+
+    .rail,
+    .fill {
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 2px
+    }
+
+    .rail {
+      background: var(--line)
+    }
+
+    .fill {
+      background: linear-gradient(var(--a), var(--b));
+      transform-origin: top;
+      transform: scaleY(0)
+    }
+
+    .step {
+      position: relative;
+      padding: 0 0 64px;
+      max-width: 640px
+    }
+
+    .step::before {
+      content: "";
+      position: absolute;
+      left: -44px;
+      top: 8px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--ink)
+    }
+
+    .step h3 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      margin-bottom: 8px
+    }
+
+    .step p {
+      color: var(--mute)
+    }
+
+    /* cta */
+    .cta {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 40px 40px 0 0;
+      padding: clamp(80px, 14vw, 160px) 0;
+      text-align: center;
+      overflow: hidden;
+      position: relative
+    }
+
+    .cta h2 {
+      font-size: clamp(3rem, 11vw, 10rem);
+      position: relative
+    }
+
+    .cta p {
+      color: #b9bcc6;
+      margin: 22px auto 34px;
+      max-width: 480px;
+      position: relative
+    }
+
+    .cta .pill {
+      background: #fff;
+      color: var(--ink);
+      display: inline-block;
+      padding: 16px 32px;
+      font-size: 1rem;
+      position: relative
+    }
+
+    .cta .blob {
+      opacity: .35
+    }
+
+    footer {
+      background: var(--ink);
+      color: #8d909b;
+      font-size: .82rem;
+      padding: 28px clamp(20px, 5vw, 48px);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-top: 1px solid #ffffff1a
+    }
+
+    .logo svg {
+      height: 22px;
+      width: auto;
+      display: block
+    }
+
+    #cur {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none
+    }
+
+    .marquee {
+      background: #efece4cc
+    }
+
+    /* flowing 3D cards */
+    .flow {
+      --cw: clamp(250px, 29vw, 400px);
+      height: 100vh;
+      height: 100svh;
+      position: relative;
+      overflow: hidden;
+      background: #0c0d11;
+      color: #fff
+    }
+
+    .flow canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%
+    }
+
+    .flow-head {
+      position: absolute;
+      z-index: 4;
+      left: clamp(20px, 5vw, 48px);
+      top: clamp(84px, 13vh, 120px)
+    }
+
+    .flow-head h2 {
+      font-size: clamp(2rem, 4.4vw, 3.8rem);
+      margin-top: 14px;
+      max-width: 11ch
+    }
+
+    .flow .eyebrow {
+      color: #ffffff99
+    }
+
+    .flow .eyebrow::before {
+      background: var(--o)
+    }
+
+    .ghost-word {
+      position: absolute;
+      z-index: 1;
+      left: 50%;
+      top: 58%;
+      transform: translate(-50%, -50%);
+      font: 500 clamp(8rem, 28vw, 26rem)/1 var(--display);
+      letter-spacing: -.05em;
+      color: transparent;
+      -webkit-text-stroke: 1.5px #ff400080;
+      white-space: nowrap;
+      pointer-events: none
+    }
+
+    .stage {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      perspective: 1300px
+    }
+
+    .world {
+      position: absolute;
+      left: 50%;
+      top: 58%;
+      transform-style: preserve-3d
+    }
+
+    .fc {
+      position: absolute;
+      width: var(--cw);
+      height: calc(var(--cw) * .68);
+      margin: calc(var(--cw) * -.34) 0 0 calc(var(--cw) / -2);
+      border-radius: 16px;
+      border: 2px solid #ffffffd9;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 40px 70px -25px #000c;
+      backface-visibility: visible;
+      will-change: transform, opacity
+    }
+
+    .fc-bar {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      padding: 7px 12px;
+      font-size: calc(var(--cw) * .028);
+      opacity: .75
+    }
+
+    .fc-bar i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: .5
+    }
+
+    .fc-bar span {
+      margin-left: auto;
+      border: 1px solid currentColor;
+      border-radius: 99px;
+      padding: 1px 9px
+    }
+
+    .fc-b {
+      position: relative;
+      flex: 1;
+      padding: 4% 8%
+    }
+
+    .fc h3 {
+      font-size: calc(var(--cw) * .1);
+      line-height: 1;
+      max-width: 8ch
+    }
+
+    .fc p {
+      font-size: calc(var(--cw) * .037);
+      line-height: 1.4;
+      max-width: 52%;
+      margin-top: .8em;
+      opacity: .75
+    }
+
+    .fc-art {
+      position: absolute;
+      right: 7%;
+      bottom: 9%;
+      width: 40%;
+      height: 52%
+    }
+
+    .fc-art b {
+      position: absolute;
+      display: block
+    }
+
+    .fc-tag {
+      position: absolute;
+      left: 8%;
+      bottom: 9%;
+      font-size: calc(var(--cw) * .032);
+      background: currentColor;
+      border-radius: 99px;
+      padding: 3px 12px
+    }
+
+    .fc-tag span {
+      color: var(--tb);
+      mix-blend-mode: normal
+    }
+
+    .t0 {
+      background: #f7f5f0;
+      color: #15171c;
+      --tb: #f7f5f0
+    }
+
+    .t1 {
+      background: #15171c;
+      color: #fff;
+      --tb: #15171c
+    }
+
+    .t2 {
+      background: #ff4000;
+      color: #fff;
+      --tb: #ff4000
+    }
+
+    .t3 {
+      background: #ffd8c2;
+      color: #15171c;
+      --tb: #ffd8c2
+    }
+
+    .flow-ui {
+      position: absolute;
+      z-index: 4;
+      left: clamp(20px, 5vw, 48px);
+      right: clamp(20px, 5vw, 48px);
+      bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      font-size: .85rem;
+      color: #ffffff99
+    }
+
+    .flow-ui strong {
+      font: 500 clamp(2rem, 4vw, 3rem)/1 var(--display);
+      color: #fff;
+      display: block
+    }
+
+    .rm .flow {
+      height: auto;
+      padding: 120px 0 60px
+    }
+
+    .rm .flow-ui,
+    .rm .ghost-word {
+      display: none
+    }
+
+    .rm .stage {
+      position: relative;
+      perspective: none;
+      margin-top: 160px
+    }
+
+    .rm .world {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 0 clamp(20px, 5vw, 48px)
+    }
+
+    .rm .fc {
+      position: relative;
+      margin: 0;
+      width: auto;
+      height: auto;
+      aspect-ratio: 1.47
+    }
+
+    /* contact */
+    .cta {
+      text-align: left
+    }
+
+    .cta .wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(32px, 6vw, 80px);
+      align-items: center
+    }
+
+    .cta h2 {
+      font-size: clamp(3rem, 8vw, 7.5rem)
+    }
+
+    .cta p {
+      margin: 22px 0 30px
+    }
+
+    .form {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      padding: clamp(20px, 3vw, 34px);
+      border-radius: 28px;
+      background: #ffffff0f;
+      border: 1px solid #ffffff24;
+      backdrop-filter: blur(12px)
+    }
+
+    .form label,
+    .form legend {
+      font-size: .85rem;
+      color: #c9ccd6;
+      display: grid;
+      gap: 7px
+    }
+
+    .form fieldset {
+      border: 0;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 9px
+    }
+
+    .form .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px
+    }
+
+    .form input[type=text],
+    .form input[type=email],
+    .form textarea {
+      font: inherit;
+      color: #fff;
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 14px;
+      background: #ffffff12;
+      border: 1px solid #ffffff2e
+    }
+
+    .form textarea {
+      min-height: 120px;
+      resize: vertical
+    }
+
+    .form ::placeholder {
+      color: #8d909b
+    }
+
+    .form :is(input, textarea, button):focus-visible {
+      outline: 2px solid var(--o);
+      outline-offset: 2px
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    .chips label {
+      display: block;
+      cursor: pointer
+    }
+
+    .chips input {
+      position: absolute;
+      opacity: 0
+    }
+
+    .chips span {
+      display: block;
+      padding: 8px 15px;
+      border-radius: 99px;
+      border: 1px solid #ffffff40;
+      color: #fff;
+      font-size: .85rem;
+      transition: background .2s, border-color .2s
+    }
+
+    .chips input:checked+span {
+      background: var(--o);
+      border-color: var(--o)
+    }
+
+    .chips input:focus-visible+span {
+      outline: 2px solid #fff;
+      outline-offset: 2px
+    }
+
+    .send {
+      font: inherit;
+      font-weight: 500;
+      border: 0;
+      cursor: pointer;
+      background: var(--o);
+      color: #fff;
+      padding: 15px 28px;
+      border-radius: 99px;
+      justify-self: start;
+      transition: transform .3s
+    }
+
+    .send:hover {
+      transform: scale(1.05)
+    }
+
+    .status {
+      font-size: .88rem;
+      color: #c9ccd6;
+      min-height: 1.4em
+    }
+
+    @media (max-width: 800px) {
+      .cta .wrap {
+        grid-template-columns: 1fr
+      }
+
+      .form .two {
+        grid-template-columns: 1fr
+      }
+
+      .flow-head h2 {
+        max-width: 14ch
+      }
+
+      .flow-ui span {
+        display: none
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scrollhint b {
+        animation: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress"></div>
+  <canvas id="cur" aria-hidden="true"></canvas>
+  <nav><a class="logo" href="#" aria-label="StroomX home"><svg viewBox="80 268 1225 232" role="img" aria-label="StroomX"
+        fill="#ff4000">
+        <path
+          d="M88.3,420.7v-34.1h98.5c5.1,0,8.7-3.2,8.7-8.9s-3.6-9.1-8.7-9.1h-58c-24.5,0-42.2-16.2-42.2-39.7s17.6-39.9,42.2-39.9h100.2v33.9h-98.5c-5.1,0-8.5,3-8.5,8.7s3.4,8.9,8.5,8.9h58c24.7,0,42.4,16.4,42.4,39.9s-17.6,40.3-42.4,40.3h-100.2Z" />
+        <path d="M289.7,420.7v-97.9h-48.5v-33.9h132.4v33.9h-48.5v97.9h-35.5Z" />
+        <path
+          d="M491.8,420.7l-26.4-33.5h-31.2v-30.8h45.4c9.7,0,16.6-6.7,16.6-16.8s-6.9-16.8-16.6-16.8h-55.5v97.9h-35.3v-131.8h90.8c30.2,0,52.1,19.9,52.1,49.3s-10.5,35.9-27,43.8l33.2,38.7h-46.2Z" />
+        <path
+          d="M641.3,432.2h-19.1c-47,0-81.2-32.5-81.2-77.3s34.1-77.3,81.2-77.3h19.1c46.9,0,81,32.5,81,77.3s-34.1,77.3-81,77.3ZM622.3,300.4c-34.9,0-58.3,21.9-58.3,54.5s23.4,54.5,58.3,54.5h19.1c34.8,0,58.1-21.9,58.1-54.5s-23.4-54.5-58.1-54.5h-19.1Z" />
+        <path
+          d="M828.7,432.2h-19.1c-47,0-81.2-32.5-81.2-77.3s34.1-77.3,81.2-77.3h19.1c46.9,0,81,32.5,81,77.3s-34.1,77.3-81,77.3ZM809.6,300.4c-34.9,0-58.3,21.9-58.3,54.5s23.4,54.5,58.3,54.5h19.1c34.8,0,58.1-21.9,58.1-54.5s-23.4-54.5-58.1-54.5h-19.1Z" />
+        <path
+          d="M1074.9,420.7l-19.5-84.7-22.9,72.2c-2.4,8.5-8.3,12.6-16.6,12.6h-10.7c-8.5,0-14.2-4.1-16.6-12.6l-22.9-73.6-19.5,86.2h-35.1l26.8-116.8c2.2-10.9,8.3-15,17.2-15h14.8c8.3,0,14.2,4.1,16.8,12.8l23.9,78.9,23.7-78.9c2.6-8.7,8.3-12.8,16.6-12.8h14.8c8.9,0,15,4.1,17.4,15l27,116.8h-35.3Z" />
+        <path
+          d="M1234.5,420.7l-38.9-45.4-37.9,45.4h-42.2l57.8-68.7-53.1-63.1h44.8l33.5,39.9,33.7-39.9h42.2l-53.3,63.3,58.4,68.5h-44.8Z" />
+        <polygon
+          points="793.9 490.4 793.9 456.6 661.5 456.6 661.5 490.4 709.9 490.4 709.9 490.5 745.4 490.5 745.4 490.4 793.9 490.4" />
+      </svg></a><a class="pill" href="#contact">Let's talk</a></nav>
+
+  <header class="hero">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="wrap">
+      <div class="eyebrow">Stroom — Dutch for "flow"</div>
+      <h1 id="hero-title">Where ideas find their flow.</h1>
+      <p class="hero-p">StroomX turns scattered work into one smooth current — connecting people, data and decisions so
+        your business moves effortlessly.</p>
+      <div class="hero-cta"><a class="pill" href="#story">Start the story</a><a class="ghost" href="#services">What we
+          do</a></div>
+    </div>
+    <div class="scrollhint"><b></b>Scroll</div>
+  </header>
+
+  <div class="marquee">
+    <div id="mq">
+      <span>Strategy</span><em>✦</em><span>Design</span><em>✦</em><span>Automation</span><em>✦</em><span>Data</span><em>✦</em><span>Growth</span><em>✦</em><span>Strategy</span><em>✦</em><span>Design</span><em>✦</em><span>Automation</span><em>✦</em><span>Data</span><em>✦</em><span>Growth</span><em>✦</em>
+    </div>
+  </div>
+
+  <section class="story" id="story">
+    <div class="orb">
+      <div class="ring"></div>
+    </div>
+    <div class="chap">
+      <div class="n">01 — The problem</div>
+      <h2>Work gets stuck.</h2>
+      <p>Tools pile up, teams drift apart and good ideas wait in queues. Friction quietly becomes the default.</p>
+    </div>
+    <div class="chap">
+      <div class="n">02 — The shift</div>
+      <h2>So we make it flow.</h2>
+      <p>We map the current of your business, remove what blocks it and connect what was never meant to be apart.</p>
+    </div>
+    <div class="chap">
+      <div class="n">03 — The result</div>
+      <h2>Momentum, on repeat.</h2>
+      <p>Clear systems, faster decisions and a team that spends its energy on what matters — not on moving things
+        around.</p>
+    </div>
+    <div class="dots"><i><b></b></i><i><b></b></i><i><b></b></i></div>
+  </section>
+
+  <section class="flow" id="services">
+    <canvas id="curDark" aria-hidden="true"></canvas>
+    <div class="ghost-word" aria-hidden="true">flow</div>
+    <div class="flow-head">
+      <div class="eyebrow">What we do</div>
+      <h2>Eight ways to keep work moving.</h2>
+    </div>
+    <div class="stage">
+      <div class="world" role="list"></div>
+    </div>
+    <div class="flow-ui">
+      <div><strong id="fcn">01</strong><span id="fct">Strategy</span></div><span>Keep scrolling to follow the
+        current</span>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="wrap">
+      <div class="eyebrow">In motion</div>
+      <h2>Small shifts. Measurable momentum.</h2>
+      <div class="grid">
+        <div class="stat"><strong><span class="count" data-n="120">0</span>+</strong><span>Projects delivered</span></div>
+        <div class="stat"><strong><span class="count" data-n="40">0</span>%</strong><span>Average time saved</span></div>
+        <div class="stat"><strong><span class="count" data-n="18">0</span></strong><span>Countries reached</span></div>
+        <div class="stat"><strong><span class="count" data-n="98">0</span>%</strong><span>Client satisfaction</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process">
+    <div class="wrap">
+      <div class="eyebrow">How we work</div>
+      <h2>From first ripple to full current.</h2>
+      <div class="steps">
+        <div class="rail"></div>
+        <div class="fill"></div>
+        <div class="step">
+          <h3>Listen</h3>
+          <p>We start by understanding your people, tools and goals — no assumptions.</p>
+        </div>
+        <div class="step">
+          <h3>Map</h3>
+          <p>We trace where work flows, where it stalls and where the biggest wins hide.</p>
+        </div>
+        <div class="step">
+          <h3>Build</h3>
+          <p>Small, fast releases you can see and feel, shaped together with your team.</p>
+        </div>
+        <div class="step">
+          <h3>Flow</h3>
+          <p>We measure, refine and keep the momentum going long after launch.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="blob b1" style="width:30vw;height:30vw;top:-10vw;right:-5vw"></div>
+    <div class="blob b2" style="width:26vw;height:26vw;bottom:-10vw;left:-5vw"></div>
+    <div class="wrap">
+      <div>
+        <h2 class="cta-title">Ready to flow?</h2>
+        <p>Tell us what's slowing you down. We'll show you how it could move.</p>
+        <a class="pill" href="mailto:hello@stroomx.com">hello@stroomx.com</a>
+      </div>
+      <form class="form" id="cf" novalidate>
+        <div class="two">
+          <label>Name<input type="text" name="name" autocomplete="name" placeholder="Your name" required></label>
+          <label>Email<input type="email" name="email" autocomplete="email" placeholder="you@company.com"
+              required></label>
+        </div>
+        <label>Company<input type="text" name="company" autocomplete="organization"
+            placeholder="Where you work"></label>
+        <fieldset>
+          <legend>What do you need help with?</legend>
+          <div class="chips">
+            <label><input type="checkbox" name="topic" value="Strategy"><span>Strategy</span></label>
+            <label><input type="checkbox" name="topic" value="Experience design"><span>Experience design</span></label>
+            <label><input type="checkbox" name="topic" value="Automation"><span>Automation</span></label>
+            <label><input type="checkbox" name="topic" value="Data & insight"><span>Data &amp; insight</span></label>
+          </div>
+        </fieldset>
+        <label>Message<textarea name="msg" placeholder="Where does work get stuck today?" required></textarea></label>
+        <button class="send" type="submit">Send message</button>
+        <div class="status" id="st" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+  <footer><span>© 2026 StroomX</span><span>stroomx.com</span></footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    (function () {
+      if (!window.gsap || !window.ScrollTrigger) return;
+      gsap.registerPlugin(ScrollTrigger);
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.documentElement.classList.toggle('rm', reduce);
+      if (reduce) { buildCards(); drawAll(0, 0); return; }
+
+      // split hero + cta words into masked spans
+      function split(el) {
+        var t = el.textContent.trim().split(/\s+/);
+        el.innerHTML = t.map(function (w) { return '<span class="w"><span>' + w + '</span></span>' }).join(' ');
+        return el.querySelectorAll('.w span');
+      }
+      var hw = split(document.getElementById('hero-title'));
+      var cw = split(document.querySelector('.cta-title'));
+
+      // page progress
+      gsap.to('.progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: .2 } });
+
+      // hero intro
+      var intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
+      intro.from('nav', { y: -40, opacity: 0, duration: .9 })
+        .from('.hero .eyebrow', { opacity: 0, y: 20, duration: .8 }, '-=.5')
+        .from(hw, { yPercent: 110, duration: 1.2, stagger: .1 }, '-=.6')
+        .from('.hero-p,.hero-cta', { opacity: 0, y: 24, duration: .9, stagger: .12 }, '-=.7');
+      gsap.to('.b1', { y: 180, x: -60, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+      gsap.to('.b2', { y: -120, x: 80, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+      gsap.to('.b3', { y: -200, scale: 1.4, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+      gsap.to('.hero h1', { yPercent: -20, opacity: .2, scrollTrigger: { trigger: '.hero', start: 'center top', end: 'bottom top', scrub: true } });
+
+      // marquee driven by scroll velocity-ish drift
+      gsap.to('#mq', { xPercent: -50, ease: 'none', scrollTrigger: { trigger: '.marquee', start: 'top bottom', end: 'bottom top', scrub: true } });
+
+      // pinned storytelling
+      var chaps = gsap.utils.toArray('.chap'), bars = gsap.utils.toArray('.dots b');
+      gsap.set(chaps.slice(1), { autoAlpha: 0, y: 60 });
+      var st = gsap.timeline({ defaults: { ease: 'power2.inOut' }, scrollTrigger: { trigger: '.story', start: 'top top', end: '+=300%', pin: true, scrub: .8 } });
+      st.from(chaps[0], { autoAlpha: 0, y: 60, duration: .4 }, 0)
+        .to(bars[0], { scaleX: 1, duration: 1, ease: 'none' }, 0)
+        .to('.orb', { scale: .7, x: -40, rotate: 90, duration: 1 }, .5)
+        .to(chaps[0], { autoAlpha: 0, y: -60, duration: .4 }, 1)
+        .to(chaps[1], { autoAlpha: 1, y: 0, duration: .4 }, 1.1)
+        .to('.orb', { scale: 1.15, x: 30, borderRadius: '42% 58% 55% 45% / 50% 40% 60% 50%', background: 'radial-gradient(circle at 30% 30%,#fff,#ffb08a 50%,#ff7a45)', rotate: 200, duration: 1 }, 1.2)
+        .to(bars[1], { scaleX: 1, duration: 1, ease: 'none' }, 1.1)
+        .to(chaps[1], { autoAlpha: 0, y: -60, duration: .4 }, 2.1)
+        .to(chaps[2], { autoAlpha: 1, y: 0, duration: .4 }, 2.2)
+        .to('.orb', { scale: 1.5, x: 0, borderRadius: '50%', background: 'radial-gradient(circle at 30% 30%,#fff,#ff7a45 45%,#ff4000)', rotate: 360, duration: 1 }, 2.3)
+        .to(bars[2], { scaleX: 1, duration: 1, ease: 'none' }, 2.2)
+        .to({}, { duration: .4 });
+      gsap.to('.ring', { rotate: 360, duration: 30, repeat: -1, ease: 'none' });
+
+      // stats
+      gsap.from('.stats h2,.stats .eyebrow', { y: 50, opacity: 0, stagger: .1, scrollTrigger: { trigger: '.stats', start: 'top 75%' } });
+      gsap.from('.stat', { y: 60, opacity: 0, stagger: .12, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: '.grid', start: 'top 85%' } });
+      gsap.utils.toArray('[data-n]').forEach(function (el) {
+        var o = { v: 0 }, end = +el.dataset.n;
+        gsap.to(o, { v: end, duration: 2, ease: 'power2.out', onUpdate: function () { el.textContent = Math.round(o.v) }, scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
+      });
+
+      // process
+      gsap.to('.fill', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.steps', start: 'top 70%', end: 'bottom 70%', scrub: true } });
+      gsap.utils.toArray('.step').forEach(function (s) {
+        gsap.from(s, { x: 60, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: s, start: 'top 85%' } });
+        gsap.to(s, { '--on': 1, scrollTrigger: { trigger: s, start: 'top 70%', toggleClass: 'on' } });
+      });
+      gsap.from('.process h2', { y: 50, opacity: 0, scrollTrigger: { trigger: '.process h2', start: 'top 85%' } });
+
+      // CTA
+      gsap.from(cw, { yPercent: 110, stagger: .12, duration: 1.1, ease: 'power4.out', scrollTrigger: { trigger: '.cta', start: 'top 65%' } });
+      gsap.from('.cta p,.cta .pill,.form', { y: 30, opacity: 0, stagger: .15, scrollTrigger: { trigger: '.cta', start: 'top 55%' } });
+      gsap.from('.cta', { scale: .94, borderRadius: '120px 120px 0 0', scrollTrigger: { trigger: '.cta', start: 'top bottom', end: 'top 40%', scrub: true } });
+
+      // the Current: a flow field that swells with scroll speed, plus a 3D ribbon of cards
+      var D = [['Strategy', 'Direction that moves', 'A route your whole team can follow.'], ['Experience design', 'Feels effortless', 'Journeys that are light and clearly yours.'], ['Automation', 'Zero busywork', 'Workflows that keep information moving.'], ['Data & insight', 'See what is next', 'Signals that make the decision obvious.'], ['Integrations', 'Everything connected', 'Tools that finally talk to each other.'], ['Workflows', 'Request to done', 'Handoffs and approvals without the chase.'], ['Dashboards', 'One live view', 'The numbers your team actually uses.'], ['Brand systems', 'Flow in every pixel', 'Design rules that scale with you.']];
+      var fcs = [], world, cw = 300, drawG, drawD, ph = 0, sp = 0, lastY = 0, inFlow = reduce;
+      function art(i) {
+        var k = i % 3;
+        if (k == 0) return '<b style="right:0;top:0;width:62%;aspect-ratio:1;border-radius:50%;background:currentColor"></b><b style="left:0;bottom:0;width:48%;aspect-ratio:1;border-radius:50%;border:2px solid currentColor"></b>';
+        if (k == 1) return [30, 55, 40, 80, 100].map(function (h, n) { return '<b style="bottom:0;left:' + n * 21 + '%;width:15%;height:' + h + '%;border-radius:4px 4px 0 0;background:currentColor;opacity:' + (.45 + n * .14) + '"></b>' }).join('');
+        return '<b style="inset:0;border-radius:12px;opacity:.7;background:repeating-linear-gradient(-30deg,currentColor 0 2px,transparent 2px 12px)"></b>';
+      }
+      function buildCards() {
+        world = document.querySelector('.world');
+        world.innerHTML = D.map(function (d, i) { return '<article class="fc t' + (i % 4) + '" role="listitem"><div class="fc-bar"><i></i><i></i><i></i><span>stroomx.com</span></div><div class="fc-b"><h3>' + d[1] + '</h3><p>' + d[2] + '</p><div class="fc-art">' + art(i) + '</div><div class="fc-tag"><span>' + d[0] + '</span></div></div></article>' }).join('');
+        fcs = [].slice.call(world.children);
+      }
+      function place(o) {
+        cw = fcs[0].offsetWidth || 300;
+        fcs.forEach(function (el, i) {
+          var u = i - o, a = Math.abs(u),
+            x = u * cw * .8 + Math.sin(u * .8) * cw * .14, y = -u * cw * .3 + Math.cos(u * .6) * cw * .07, z = -Math.pow(a, 1.25) * cw * .55,
+            ry = -u * 30, rx = Math.sin(u * .9) * 9, rz = -u * 2.5 - Math.sin(u * .7) * 3;
+          el.style.transform = 'translate3d(' + x + 'px,' + y + 'px,' + z + 'px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) rotateZ(' + rz + 'deg)';
+          el.style.opacity = Math.max(0, Math.min(1, (3.6 - a) / 1.1));
+        });
+        var n = Math.max(0, Math.min(D.length - 1, Math.round(o)));
+        document.getElementById('fcn').textContent = ('0' + (n + 1)).slice(-2);
+        document.getElementById('fct').textContent = D[n][0];
+      }
+      function mkFlow(cv, al, rows) {
+        var c = cv.getContext('2d'), W, H;
+        function rs() { var d = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * d; cv.height = H * d; c.setTransform(d, 0, 0, d, 0, 0) }
+        rs(); addEventListener('resize', rs);
+        return function (p, amp) {
+          c.clearRect(0, 0, W, H); c.save(); c.translate(W / 2, H / 2); c.rotate(-.42);
+          var L = Math.hypot(W, H);
+          for (var k = 0; k < rows; k++) {
+            var y0 = (k - rows / 2) * L / rows * .75; c.beginPath();
+            for (var x = -L / 2; x <= L / 2; x += 18) {
+              var y = y0 + Math.sin(x * .0042 + p + k * .21) * amp + Math.sin(x * .0097 - p * 1.4 + k * .12) * amp * .45;
+              x == -L / 2 ? c.moveTo(x, y) : c.lineTo(x, y);
+            }
+            c.strokeStyle = 'rgba(255,64,0,' + al * (.35 + .65 * Math.abs(Math.sin(k * .5 + p * .3))) + ')'; c.lineWidth = 1.3; c.stroke();
+          }
+          c.restore();
+        };
+      }
+      function drawAll(p, amp) {
+        if (!drawG) { drawG = mkFlow(document.getElementById('cur'), .17, 24); drawD = mkFlow(document.getElementById('curDark'), .75, 30) }
+        drawG(p, 22 + amp); if (inFlow) drawD(p, 34 + amp * 1.4);
+      }
+      buildCards(); place(1);
+      var P = { o: 1 };
+      gsap.to(P, { o: D.length - 2.2, ease: 'none', onUpdate: function () { place(P.o) }, scrollTrigger: { trigger: '.flow', start: 'top top', end: '+=420%', pin: true, scrub: .6, onToggle: function (s) { inFlow = s.isActive } } });
+      gsap.from('.flow-head', { opacity: 0, y: 40, scrollTrigger: { trigger: '.flow', start: 'top 70%', toggleActions: 'play none none reverse' } });
+      var qx = gsap.quickTo(world, 'rotationY', { duration: .8 }), qy = gsap.quickTo(world, 'rotationX', { duration: .8 });
+      addEventListener('pointermove', function (e) { qx((e.clientX / innerWidth - .5) * 8); qy(-(e.clientY / innerHeight - .5) * 6) });
+      gsap.ticker.add(function () { var y = scrollY, d = Math.min(Math.abs(y - lastY), 70) / 70; lastY = y; sp += (d - sp) * .08; ph += .004 + sp * .05; drawAll(ph, sp * 38) });
+      ScrollTrigger.create({ start: 0, end: 'max', onUpdate: function () { } });
+
+
+      window.addEventListener('load', function () { ScrollTrigger.refresh() });
+    })();
+  </script>
+  <script>
+    // Contact form: opens the visitor's email app with the message filled in.
+    // To send from the page instead, replace the location.href line with a fetch() to your form backend.
+    document.getElementById('cf').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = e.target, st = document.getElementById('st');
+      if (!f.checkValidity()) { f.reportValidity(); return; }
+      var d = new FormData(f), t = d.getAll('topic').join(', ') || 'Not specified';
+      var body = 'Name: ' + d.get('name') + '\nEmail: ' + d.get('email') + '\nCompany: ' + (d.get('company') || '-') + '\nTopics: ' + t + '\n\n' + d.get('msg');
+      location.href = 'mailto:hello@stroomx.com?subject=' + encodeURIComponent('New enquiry from ' + d.get('name')) + '&body=' + encodeURIComponent(body);
+      st.textContent = 'Your email app should open with this message ready. Press send there, or write to hello@stroomx.com.';
+    });
+  </script>
+</body>
+
+</html>
