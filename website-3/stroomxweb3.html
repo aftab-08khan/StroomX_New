@@ -656,6 +656,7 @@
         font-weight: 500;
         font-size: clamp(3rem, 6vw, 7rem);
         letter-spacing: -0.04em;
+        color: var(--o);
       }
       .grid {
         display: grid;
@@ -671,6 +672,7 @@
         font-weight: 500;
         display: block;
         line-height: 1;
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
       }
       /* team */
       .team {
@@ -1317,6 +1319,106 @@
           margin-left: calc(var(--bw) / 3);
         }
       }
+      /* smooth custom cursor (mouse devices only; JS adds html.cu-on) */
+      html.cu-on,
+      html.cu-on * {
+        cursor: none !important;
+      }
+      html.cu-on input,
+      html.cu-on textarea {
+        cursor: text !important;
+      }
+      #cd,
+      #cr {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 300;
+        pointer-events: none;
+        mix-blend-mode: difference;
+        will-change: transform;
+      }
+      #cd i {
+        display: block;
+        width: 8px;
+        height: 8px;
+        margin: -4px 0 0 -4px;
+        border-radius: 50%;
+        background: #fff;
+        -webkit-transition:
+          -webkit-transform 0.25s,
+          opacity 0.25s;
+        transition:
+          transform 0.25s,
+          opacity 0.25s;
+      }
+      #cr b {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        margin: -20px 0 0 -20px;
+        border-radius: 50%;
+        border: 1.5px solid #fff;
+        -webkit-transition:
+          -webkit-transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+          background 0.25s,
+          opacity 0.25s;
+        transition:
+          transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+          background 0.25s,
+          opacity 0.25s;
+      }
+      #cr em {
+        font: 700 10px/1 var(--body);
+        font-style: normal;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #fff;
+        opacity: 0;
+        -webkit-transition: opacity 0.2s;
+        transition: opacity 0.2s;
+      }
+      html[data-cu="h"] #cr b {
+        -webkit-transform: scale(1.7);
+        transform: scale(1.7);
+        background: #ffffff26;
+      }
+      html[data-cu="v"] #cr,
+      html[data-cu="d"] #cr {
+        mix-blend-mode: normal;
+      }
+      html[data-cu="v"] #cr b,
+      html[data-cu="d"] #cr b {
+        -webkit-transform: scale(2);
+        transform: scale(2);
+        background: #15171c;
+        box-shadow: 0 4px 18px #0006;
+      }
+      html[data-cu="v"] #cr em,
+      html[data-cu="d"] #cr em {
+        opacity: 1;
+      }
+      html[data-cu="v"] #cd i,
+      html[data-cu="d"] #cd i,
+      html[data-cu="h"] #cd i {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      }
+      html.cu-dn #cr b {
+        -webkit-transform: scale(0.8);
+        transform: scale(0.8);
+      }
+      html.cu-dn[data-cu="v"] #cr b,
+      html.cu-dn[data-cu="d"] #cr b {
+        -webkit-transform: scale(1.7);
+        transform: scale(1.7);
+      }
+      html.cu-hide #cd i,
+      html.cu-hide #cr b {
+        opacity: 0;
+      }
     </style>
   </head>
   <body>
@@ -1554,8 +1656,11 @@
         preload="metadata"
         aria-hidden="true"
       >
-        <source src="https://pixabay.com/videos/download/x-171361_medium.mp4" type="video/mp4" />
-        <source src="assets/stroomx-reel.webm" type="video/webm" />
+        <source
+          src="https://pixabay.com/videos/download/x-171361_medium.mp4"
+          type="video/mp4"
+        />
+        <source src="https://pixabay.com/videos/spaceship-spacecraft-futuristic-52742/" type="video/webm" />
       </video>
       <div class="wrap">
         <div class="eyebrow">StroomX in motion</div>
@@ -1765,6 +1870,116 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script>
+      /* smooth following cursor */
+      (function () {
+        if (
+          !window.matchMedia ||
+          !matchMedia("(hover:hover) and (pointer:fine)").matches
+        )
+          return;
+        var H = document.documentElement,
+          d = document.createElement("div"),
+          r = document.createElement("div");
+        d.id = "cd";
+        d.innerHTML = "<i></i>";
+        r.id = "cr";
+        r.innerHTML = "<b><em></em></b>";
+        d.setAttribute("aria-hidden", "true");
+        r.setAttribute("aria-hidden", "true");
+        document.body.appendChild(r);
+        document.body.appendChild(d);
+        var lab = r.querySelector("em"),
+          mx = -100,
+          my = -100,
+          dx = mx,
+          dy = my,
+          rx = mx,
+          ry = my,
+          tx = mx,
+          ty = my,
+          st = "",
+          init = false;
+        function set(k, t) {
+          if (k === st) return;
+          st = k;
+          if (k) H.setAttribute("data-cu", k);
+          else H.removeAttribute("data-cu");
+          if (t) lab.textContent = t;
+        }
+        function mode(e) {
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest("input,textarea,select")) {
+            H.classList.add("cu-hide");
+            H.classList.remove("cu-on");
+            return;
+          }
+          H.classList.add("cu-on");
+          H.classList.remove("cu-hide");
+          if (t.closest(".fc") && !t.closest(".md")) {
+            set("v", "View");
+            return;
+          }
+          if (t.closest("#gl,.rib,.bricks")) {
+            set("d", "Drag");
+            return;
+          }
+          var h = t.closest("a,button,label,.pill");
+          if (h) {
+            set("h");
+            var b = h.getBoundingClientRect();
+            tx = mx + (b.left + b.width / 2 - mx) * 0.3;
+            ty = my + (b.top + b.height / 2 - my) * 0.3;
+            return;
+          }
+          set("");
+        }
+        H.classList.add("cu-on");
+        addEventListener(
+          "pointermove",
+          function (e) {
+            if (e.pointerType && e.pointerType !== "mouse") return;
+            mx = tx = e.clientX;
+            my = ty = e.clientY;
+            if (!init) {
+              init = true;
+              dx = rx = mx;
+              dy = ry = my;
+            }
+            mode(e);
+            if (st !== "h") {
+              tx = mx;
+              ty = my;
+            }
+          },
+          { passive: true },
+        );
+        addEventListener("pointerdown", function () {
+          H.classList.add("cu-dn");
+        });
+        addEventListener("pointerup", function () {
+          H.classList.remove("cu-dn");
+        });
+        document.addEventListener("mouseleave", function () {
+          H.classList.add("cu-hide");
+        });
+        document.addEventListener("mouseenter", function () {
+          H.classList.remove("cu-hide");
+        });
+        (function loop() {
+          dx += (mx - dx) * 0.4;
+          dy += (my - dy) * 0.4;
+          rx += (tx - rx) * 0.14;
+          ry += (ty - ry) * 0.14;
+          d.style.transform = d.style.webkitTransform =
+            "translate3d(" + dx + "px," + dy + "px,0)";
+          r.style.transform = r.style.webkitTransform =
+            "translate3d(" + rx + "px," + ry + "px,0)";
+          requestAnimationFrame(loop);
+        })();
+      })();
+    </script>
+    <script>
       (function () {
         var $ = function (s) {
             return document.querySelector(s);
@@ -1774,23 +1989,52 @@
 
         /* ===== EDIT ME: globe pins (name, latitude, longitude). Add or delete lines freely. ===== */
         var PINS = [
-          ["Amsterdam", 52.37, 4.9],
-          ["London", 51.5, -0.12],
-          ["New York", 40.7, -74],
-          ["São Paulo", -23.5, -46.6],
-          ["Cape Town", -33.9, 18.4],
-          ["Mumbai", 19.07, 72.87],
-          ["Singapore", 1.35, 103.8],
-          ["Sydney", -33.9, 151.2],
-        ];
+  // Americas
+  ["United States", 39.83, -98.58],
+  ["Canada", 56.13, -106.35],
+  ["Chile", -35.68, -71.54],
+  ["Jamaica", 18.11, -77.30],
+  ["Caribbean Islands", 18.22, -66.59],
+
+  // Europe
+  ["France", 46.23, 2.21],
+  ["Ireland", 53.14, -7.69],
+  ["Italy", 41.87, 12.57],
+  ["Lithuania", 55.17, 23.88],
+  ["Luxembourg", 49.82, 6.13],
+  ["Poland", 51.92, 19.15],
+  ["Romania", 45.94, 24.97],
+  ["Switzerland", 46.82, 8.23],
+  ["Turkey", 38.96, 35.24],
+  ["United Kingdom", 55.38, -3.44],
+
+  // Middle East and Africa
+  ["Bahrain", 26.07, 50.55],
+  ["Kuwait", 29.31, 47.48],
+  ["Morocco", 31.79, -7.09],
+  ["Nigeria", 9.08, 8.68],
+  ["United Arab Emirates", 23.42, 53.85],
+
+  // Asia-Pacific
+  ["Australia", -25.27, 133.78],
+  ["India", 20.59, 78.96],
+  ["Indonesia", -0.79, 113.92],
+  ["Malaysia", 4.21, 101.98],
+  ["Mongolia", 46.86, 103.85],
+  ["New Zealand", -40.90, 174.89],
+  ["Philippines", 12.88, 121.77],
+  ["Singapore", 1.35, 103.82],
+  ["Thailand", 15.87, 100.99],
+  ["Vietnam", 14.06, 108.28]
+];
         /* Or at runtime: StroomGlobe.add('Berlin',52.5,13.4); StroomGlobe.remove('London'); */
 
         /* ===== EDIT ME: team (name, role, photo path). Missing photos fall back to initials. ===== */
         var TEAM = [
-          ["Sanne de Vries", "Founder & Strategy", "team/sanne.jpg"],
-          ["Milan Bakker", "Head of Design", "team/milan.jpg"],
-          ["Aisha Rahman", "Automation Lead", "team/aisha.jpg"],
-          ["Lars Jansen", "Data & Insight", "team/lars.jpg"],
+          ["Sanne de Vries", "Founder & Strategy", "./assets/teams/Ajmal.jpeg"],
+          ["Milan Bakker", "Head of Design", "./assets/teams/Emmanuel-Rego-CEO-black.jpg"],
+          ["Aisha Rahman", "Automation Lead", "./assets/teams/Nishant-Verma.jpg"],
+          ["Lars Jansen", "Data & Insight", "./assets/teams/Shahed.jpeg"],
         ];
 
         /* ===== EDIT ME: paste your video link here. Works with a direct .mp4/.webm URL, a YouTube link or a Vimeo link. ===== */
